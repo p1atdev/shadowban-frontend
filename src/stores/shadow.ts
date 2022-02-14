@@ -1,13 +1,14 @@
 import { acceptHMRUpdate, defineStore } from "pinia"
 
 export const useShadowStore = defineStore("shadowban", () => {
-    type IsSo = "None" | "Loading" | "Yes" | "No"
+    type IsSo = "None" | "Loading" | "Yes" | "No" | "Unknown"
 
     const restId = ref("")
 
     const isExist = ref<IsSo>("None")
     const isSuggestionBanned = ref<IsSo>("None")
     const isGhostBanned = ref<IsSo>("None")
+    const isInReplyDeboosting = ref<IsSo>("None")
 
     function setRestId(id: string) {
         restId.value = id
@@ -21,14 +22,24 @@ export const useShadowStore = defineStore("shadowban", () => {
         isSuggestionBanned.value = whether
     }
 
-    function setIsGhostBanned(whether: IsSo) {
-        isGhostBanned.value = whether
+    function setIsReplyBanned(data: { ghostBan?: boolean; deboosting?: boolean }) {
+        if (data.ghostBan !== undefined) {
+            isGhostBanned.value = data.ghostBan ? "Yes" : "No"
+        } else {
+            isGhostBanned.value = "Unknown"
+        }
+        if (data.deboosting !== undefined) {
+            isInReplyDeboosting.value = data.deboosting ? "Yes" : "No"
+        } else {
+            isInReplyDeboosting.value = "Unknown"
+        }
     }
 
-    function setAllLoading() {
-        isExist.value = "Loading"
-        isSuggestionBanned.value = "Loading"
-        isGhostBanned.value = "Loading"
+    function setAll(status: "Loading" | "Yes" | "No" | "Unknown") {
+        isExist.value = status
+        isSuggestionBanned.value = status
+        isGhostBanned.value = status
+        isInReplyDeboosting.value = status
     }
 
     return {
@@ -36,11 +47,12 @@ export const useShadowStore = defineStore("shadowban", () => {
         isExist,
         isSuggestionBanned,
         isGhostBanned,
+        isInReplyDeboosting,
         setRestId,
         setIsExist,
         setIsSuggestionBanned,
-        setIsGhostBanned,
-        setAllLoading,
+        setIsReplyBanned,
+        setAll,
     }
 })
 

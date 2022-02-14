@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import CheckResults from "../components/CheckResults.vue"
 import { useShadowStore } from "~/stores/shadow"
 
 const shadow = useShadowStore()
@@ -28,29 +27,36 @@ const getIsSuggestionBanned = async (screenName: string): Promise<boolean> => {
     return data.value.suggestionBanned
 }
 
-const getIsGhostBanned = async (): Promise<boolean> => {
-    const { data } = await useFetch(`/api/v1/ghost_ban`, {
+const getIsReplyBanned = async (): Promise<{ ghostBan?: boolean; deboosting?: boolean }> => {
+    const { data } = await useFetch(`/api/v1/reply_ban`, {
         method: "GET",
         params: {
             restId: shadow.restId,
         },
     })
 
-    return data.value.ghostBanned
+    return {
+        ghostBan: data.value.ghostBanned,
+        deboosting: data.value.replyDeboosting,
+    }
 }
 
-const onNextButtonClick = async (value: string) => {
-    shadow.setAllLoading()
+const startCheck = async (screenName: string) => {
+    shadow.setIsExist("Loading")
+    shadow.setAll("Loading")
 
-    shadow.setIsExist((await getIsExist(value)) ? "Yes" : "No")
+    shadow.setIsExist((await getIsExist(screenName)) ? "Yes" : "No")
 
     if (shadow.isExist == "Yes") {
-        const [isSuggestionBanned, isGhostBanned] = await Promise.all([
-            getIsSuggestionBanned(value),
-            getIsGhostBanned(),
-        ])
-        shadow.setIsSuggestionBanned(isSuggestionBanned ? "Yes" : "No")
-        shadow.setIsGhostBanned(isGhostBanned ? "Yes" : "No")
+        getIsSuggestionBanned(screenName).then((isSuggestionBanned) => {
+            shadow.setIsSuggestionBanned(isSuggestionBanned ? "Yes" : "No")
+        })
+        getIsReplyBanned().then((isReplyBanned) => {
+            shadow.setIsReplyBanned(isReplyBanned)
+        })
+    } else {
+        shadow.setAll("None")
+        shadow.setIsExist("No")
     }
 }
 </script>
@@ -58,13 +64,10 @@ const onNextButtonClick = async (value: string) => {
 <template>
     <div class="">
         <BigTitle />
-        <CheckInputBox :onButtonClick="onNextButtonClick" />
-
+        <CheckInputBox :onButtonClick="startCheck" />
         <div class="grid place-items-center">
             <!-- <div>restId: {{ restId }}</div> -->
-            <ClientOnly>
-                <CheckResults />
-            </ClientOnly>
+            <CheckResults />
         </div>
     </div>
 </template>

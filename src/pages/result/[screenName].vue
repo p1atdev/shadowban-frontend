@@ -1,67 +1,104 @@
 <script setup lang="ts">
+import { onMounted } from "vue"
 import { useShadowStore } from "~/stores/shadow"
 
 const shadow = useShadowStore()
 const route = useRoute()
 
-const screenName = route.params.screenName
-
-const getIsExist = async (): Promise<boolean> => {
-    const { data } = await useFetch(`/api/v1/exist`, {
-        method: "GET",
-        params: {
-            screenName: screenName,
-        },
-    })
-
-    shadow.setRestId(data.value.restId)
-
-    return data.value.exist
+if (typeof route.params.screenName !== "string") {
+    const router = useRouter()
+    router.push("/")
 }
 
-const getIsSuggestionBanned = async (): Promise<boolean> => {
-    const { data } = await useFetch(`/api/v1/suggestion_ban`, {
-        method: "GET",
-        params: {
-            screenName: screenName,
-        },
-    })
+const screenName: string = route.params.screenName.toString()
 
-    return data.value.suggestionBanned
+const getIsExist = async (screenName: string): Promise<boolean> => {
+    try {
+        const { data } = await useFetch(`/api/v1/exist`, {
+            method: "GET",
+            params: {
+                screenName: screenName,
+            },
+        })
+
+        shadow.setRestId(data.value.restId)
+
+        return data.value.exist
+    } catch (e) {
+        console.error(e)
+        return false
+    }
 }
 
-const getIsGhostBanned = async (): Promise<boolean> => {
-    const { data } = await useFetch(`/api/v1/ghost_ban`, {
-        method: "GET",
-        params: {
-            restId: shadow.restId,
-        },
-    })
+const getIsSuggestionBanned = async (screenName: string): Promise<boolean> => {
+    try {
+        const { data } = await useFetch(`/api/v1/suggestion_ban`, {
+            method: "GET",
+            params: {
+                screenName: screenName,
+            },
+        })
 
-    return data.value.ghostBanned
+        return data.value.suggestionBanned
+    } catch (e) {
+        console.error(e)
+        return false
+    }
 }
 
-shadow.setIsExist("Loading")
-shadow.setAllLoading()
+const getIsReplyBanned = async (): Promise<{ ghostBan?: boolean; deboosting?: boolean }> => {
+    try {
+        const { data } = await useFetch(`/api/v1/reply_ban`, {
+            method: "GET",
+            params: {
+                restId: shadow.restId,
+            },
+        })
 
-shadow.setIsExist((await getIsExist()) ? "Yes" : "No")
-
-if (shadow.isExist) {
-    shadow.setIsSuggestionBanned((await getIsSuggestionBanned()) ? "Yes" : "No")
-    shadow.setIsGhostBanned((await getIsGhostBanned()) ? "Yes" : "No")
+        return {
+            ghostBan: data.value.ghostBanned,
+            deboosting: data.value.replyDeboosting,
+        }
+    } catch (e) {
+        console.error(e)
+        return {
+            ghostBan: false,
+            deboosting: false,
+        }
+    }
 }
+
+const startCheck = async (screenName: string) => {
+    shadow.setIsExist("Loading")
+    shadow.setAllLoading()
+
+    shadow.setIsExist((await getIsExist(screenName)) ? "Yes" : "No")
+
+    if (shadow.isExist == "Yes") {
+        getIsSuggestionBanned(screenName).then((isSuggestionBanned) => {
+            shadow.setIsSuggestionBanned(isSuggestionBanned ? "Yes" : "No")
+            console.log(isSuggestionBanned)
+        })
+        getIsReplyBanned().then((isReplyBanned) => {
+            shadow.setIsReplyBanned(isReplyBanned)
+        })
+    }
+}
+
+await startCheck(screenName)
 </script>
 
 <template>
     <BigTitle />
-    <CheckInputBox :onButtonClick="() => {}" />
-    <Suspense>
-        <!-- <div class="grid grid-items-center">
-            <p>User: {{ screenName }}</p>
-            <p>exist: {{ shadow.isExist }}</p>
-            <p>suggestion ban: {{ shadow.isSuggestionBanned }}</p>
-            <p>ghost ban: {{ shadow.isGhostBanned }}</p>
-        </div> -->
+    <CheckInputBox
+        :onButtonClick="
+            (value) => {
+                startCheck(value)
+            }
+        "
+        :defaultScreenName="screenName"
+    />
+    <ClientOnly>
         <CheckResults />
-    </Suspense>
+    </ClientOnly>
 </template>
