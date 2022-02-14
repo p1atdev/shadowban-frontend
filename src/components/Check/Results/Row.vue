@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import VSwitch from "@lmiller1990/v-switch"
 import { Icon } from "@iconify/vue"
-import checkIcon from "@iconify-icons/akar-icons/check"
-import crossIcon from "@iconify-icons/akar-icons/cross"
-import questionIcon from "@iconify-icons/bi/question-lg"
 
 type Props = {
     title: string
@@ -23,7 +20,7 @@ const { title, description, status, shouldBe } = defineProps<Props>()
             <v-switch :case="status">
                 <template #None>
                     <div class="text-blue-500">
-                        <Icon :icon="questionIcon" />
+                        <Icon icon="bi:question-lg" />
                     </div>
                 </template>
 
@@ -38,7 +35,7 @@ const { title, description, status, shouldBe } = defineProps<Props>()
                 <template #default>
                     <div v-if="status == shouldBe">
                         <div class="text-sky-600">
-                            <Icon :icon="checkIcon" />
+                            <Icon icon="akar-icons:check" />
                         </div>
                     </div>
                     <div v-else>
@@ -52,11 +49,15 @@ const { title, description, status, shouldBe } = defineProps<Props>()
         <div>
             <v-switch :case="status">
                 <template #None>
-                    {{ title }}
+                    <div class="text-gray-700">
+                        {{ title }}
+                    </div>
                 </template>
 
                 <template #Loading>
-                    {{ title }}
+                    <div class="text-gray-700">
+                        {{ title }}
+                    </div>
                 </template>
 
                 <template #Unknown> Unknown </template>
