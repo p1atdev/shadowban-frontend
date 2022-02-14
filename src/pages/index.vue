@@ -17,7 +17,7 @@ const getIsExist = async (screenName: string): Promise<boolean> => {
     return data.value.exist
 }
 
-const getisSuggestionBanned = async (screenName: string): Promise<boolean> => {
+const getIsSuggestionBanned = async (screenName: string): Promise<boolean> => {
     const { data } = await useFetch(`/api/v1/suggestion_ban`, {
         method: "GET",
         params: {
@@ -28,7 +28,7 @@ const getisSuggestionBanned = async (screenName: string): Promise<boolean> => {
     return data.value.suggestionBanned
 }
 
-const getIsUserGhostBanned = async (screenName: string): Promise<boolean> => {
+const getIsGhostBanned = async (): Promise<boolean> => {
     const { data } = await useFetch(`/api/v1/ghost_ban`, {
         method: "GET",
         params: {
@@ -45,8 +45,12 @@ const onNextButtonClick = async (value: string) => {
     shadow.setIsExist((await getIsExist(value)) ? "Yes" : "No")
 
     if (shadow.isExist == "Yes") {
-        shadow.setIsSuggestionBanned((await getisSuggestionBanned(value)) ? "Yes" : "No")
-        shadow.setIsGhostBanned((await getIsUserGhostBanned(value)) ? "Yes" : "No")
+        const [isSuggestionBanned, isGhostBanned] = await Promise.all([
+            getIsSuggestionBanned(value),
+            getIsGhostBanned(),
+        ])
+        shadow.setIsSuggestionBanned(isSuggestionBanned ? "Yes" : "No")
+        shadow.setIsGhostBanned(isGhostBanned ? "Yes" : "No")
     }
 }
 </script>

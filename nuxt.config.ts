@@ -1,8 +1,10 @@
 import { defineNuxtConfig } from "nuxt3"
 
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0"
+
 export default defineNuxtConfig({
     meta: {
-        title: "Vitesse Nuxt 3",
+        title: "Have I benn shadowbanned?",
     },
     buildModules: ["@vueuse/nuxt", "@unocss/nuxt", "@pinia/nuxt"],
     vueuse: {
