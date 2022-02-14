@@ -12,7 +12,7 @@ useMeta({
         { property: "og:image", content: baseURL + "/images/ogp.png" },
         { property: "og:url", content: baseURL },
         { property: "og:type", content: "website" },
-        { property: "og:site_name", content: "site_name" },
+        { property: "og:site_name", content: "Am I being shadowbanned?" },
         { property: "twitter:card", content: "summary_large_image" },
         // { name: "twitter:site", content: "@" },
         { name: "twitter:title", content: "Am I being shadowbanned?" },
