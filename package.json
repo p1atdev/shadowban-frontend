@@ -11,9 +11,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.14.2",
-    "@iconify-icons/akar-icons": "^1.2.0",
-    "@iconify-icons/bi": "^1.2.0",
-    "@iconify-icons/charm": "^1.2.0",
     "@iconify-json/carbon": "^1.0.12",
     "@iconify-json/twemoji": "^1.0.2",
     "@iconify/vue": "^3.1.3",
