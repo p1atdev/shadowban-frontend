@@ -35,7 +35,7 @@ export const useShadowStore = defineStore("shadowban", () => {
         }
     }
 
-    function setAll(status: "Loading" | "Yes" | "No" | "Unknown") {
+    function setAll(status: "None" | "Loading" | "Yes" | "No" | "Unknown") {
         isExist.value = status
         isSuggestionBanned.value = status
         isGhostBanned.value = status
