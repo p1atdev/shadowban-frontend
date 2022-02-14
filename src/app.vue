@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const baseURL = "https://shadowban-twitter.vercel.app"
+const baseURL = "https://shadowban.p1atdev.tk"
 
 useMeta({
     meta: [
