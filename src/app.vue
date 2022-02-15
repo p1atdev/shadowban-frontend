@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useI18n } from "vue-i18n"
+
 const baseURL = "https://shadowban.p1atdev.tk"
 
 useMeta({
@@ -23,6 +25,15 @@ useMeta({
         { property: "twitter:image", content: baseURL + "/images/ogp.png" },
     ],
 })
+
+const route = useRoute()
+
+const i18n = useI18n()
+
+// 多言語対応
+if (route.query.lang) {
+    i18n.locale.value = route.query.lang
+}
 </script>
 
 <template>

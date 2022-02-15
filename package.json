@@ -6,14 +6,15 @@
         "start": "node .output/server/index.mjs"
     },
     "dependencies": {
+        "@iconify/vue": "^3.1.3",
         "@lmiller1990/v-switch": "^1.1.0",
-        "pinia": "^2.0.9",
-        "@iconify/vue": "^3.1.3"
+        "pinia": "^2.0.9"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^0.14.2",
         "@iconify-json/carbon": "^1.0.12",
         "@iconify-json/twemoji": "^1.0.2",
+        "@intlify/nuxt3": "^0.1.10",
         "@pinia/nuxt": "^0.1.8",
         "@unocss/nuxt": "^0.20.1",
         "@vueuse/nuxt": "^7.4.2",
