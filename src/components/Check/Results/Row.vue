@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useShadowStore } from "../../../stores/shadow"
 import VSwitch from "@lmiller1990/v-switch"
 import { Icon } from "@iconify/vue"
 
@@ -12,6 +13,10 @@ type Props = {
 }
 
 const { title, description, status, shouldBe } = defineProps<Props>()
+
+const shadow = useShadowStore()
+
+const isProtected = shadow.isProtected
 </script>
 
 <template>
@@ -45,6 +50,11 @@ const { title, description, status, shouldBe } = defineProps<Props>()
                     </div>
                 </template>
             </v-switch>
+            <div v-if="isProtected == 'Yes'">
+                <div class="text-yellow-500">
+                    <Icon icon="bi:question-lg" />
+                </div>
+            </div>
         </div>
         <div>
             <v-switch :case="status">
@@ -75,6 +85,9 @@ const { title, description, status, shouldBe } = defineProps<Props>()
                     </div>
                 </template>
             </v-switch>
+            <div v-if="isProtected == 'Yes'" class="text-yellow-500">
+                {{ title }}
+            </div>
         </div>
     </div>
 </template>

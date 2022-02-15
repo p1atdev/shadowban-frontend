@@ -1,17 +1,24 @@
-export interface IsUserExistResponse {
+export interface UserResponse {
     message?: string
-    screenName?: string
+    screenName: string
+    exists: boolean
     restId?: string
-    exist?: boolean
+    protected?: boolean
 }
 
-export interface IsUserSuggestionBanned {
+export interface SuggestionBanResponse {
     message?: string
     screenName?: string
     suggestionBanned?: boolean
 }
 
-export interface IsUserReplyBanned {
+export interface SearchBanResponse {
+    message?: string
+    screenName?: string
+    searchBanned?: boolean
+}
+
+export interface ReplyBanResponse {
     message?: string
     restId: string
     ghostBanned?: boolean

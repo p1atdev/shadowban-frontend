@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { useShadowStore } from "~/stores/shadow"
+import { UserResponse, SuggestionBanResponse, SearchBanResponse, ReplyBanResponse } from "../types/twitter"
 
 const shadow = useShadowStore()
 
-const getIsExist = async (screenName: string): Promise<boolean> => {
-    const { data } = await useFetch(`/api/v1/exist`, {
+const getUser = async (screenName: string): Promise<UserResponse> => {
+    const { data } = await useFetch(`/api/v1/user`, {
         method: "GET",
         params: {
             screenName: screenName,
@@ -12,11 +13,12 @@ const getIsExist = async (screenName: string): Promise<boolean> => {
     })
 
     shadow.setRestId(data.value.restId)
+    shadow.setIsProtected(data.value.protected)
 
-    return data.value.exist
+    return data.value
 }
 
-const getIsSuggestionBanned = async (screenName: string): Promise<boolean> => {
+const getSuggestionBan = async (screenName: string): Promise<SuggestionBanResponse> => {
     const { data } = await useFetch(`/api/v1/suggestion_ban`, {
         method: "GET",
         params: {
@@ -24,10 +26,21 @@ const getIsSuggestionBanned = async (screenName: string): Promise<boolean> => {
         },
     })
 
-    return data.value.suggestionBanned
+    return data.value
 }
 
-const getIsReplyBanned = async (): Promise<{ ghostBan?: boolean; deboosting?: boolean }> => {
+const getSearchBan = async (screenName: string): Promise<SearchBanResponse> => {
+    const { data } = await useFetch(`/api/v1/search_ban`, {
+        method: "GET",
+        params: {
+            screenName: screenName,
+        },
+    })
+
+    return data.value
+}
+
+const getReplyBan = async (): Promise<ReplyBanResponse> => {
     const { data } = await useFetch(`/api/v1/reply_ban`, {
         method: "GET",
         params: {
@@ -35,25 +48,29 @@ const getIsReplyBanned = async (): Promise<{ ghostBan?: boolean; deboosting?: bo
         },
     })
 
-    return {
-        ghostBan: data.value.ghostBanned,
-        deboosting: data.value.replyDeboosting,
-    }
+    return data.value
 }
 
 const startCheck = async (screenName: string) => {
     shadow.setIsExist("Loading")
     shadow.setAll("Loading")
 
-    shadow.setIsExist((await getIsExist(screenName)) ? "Yes" : "No")
+    const user = await getUser(screenName)
+    shadow.setIsExist(user.exists ? "Yes" : "No")
+    shadow.setIsProtected(user.protected ? "Yes" : "No")
 
     if (shadow.isExist == "Yes") {
-        getIsSuggestionBanned(screenName).then((isSuggestionBanned) => {
-            shadow.setIsSuggestionBanned(isSuggestionBanned ? "Yes" : "No")
+        getSuggestionBan(screenName).then((isSuggestionBanned) => {
+            shadow.setIsSuggestionBanned(isSuggestionBanned)
         })
-        getIsReplyBanned().then((isReplyBanned) => {
-            shadow.setIsReplyBanned(isReplyBanned)
-        })
+        if (!user.protected) {
+            getSearchBan(screenName).then((isSearchBanned) => {
+                shadow.setIsSearchBanned(isSearchBanned)
+            })
+            getReplyBan().then((isReplyBanned) => {
+                shadow.setIsReplyBanned(isReplyBanned)
+            })
+        }
     } else {
         shadow.setAll("None")
         shadow.setIsExist("No")

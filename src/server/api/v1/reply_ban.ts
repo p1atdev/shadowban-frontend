@@ -1,7 +1,7 @@
 import { useQuery } from "h3"
 import config from "#config"
 import type { IncomingMessage, ServerResponse } from "http"
-import { IsUserReplyBanned } from "~~/src/types/twitter"
+import { ReplyBanResponse } from "~~/src/types/twitter"
 
 export default async (req: IncomingMessage) => {
     // get screenName form query
@@ -12,7 +12,7 @@ export default async (req: IncomingMessage) => {
         method: "GET",
     })
 
-    const json: IsUserReplyBanned = await data.json()
+    const json: ReplyBanResponse = await data.json()
 
     return json
 }

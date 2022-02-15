@@ -1,56 +1,81 @@
 import { acceptHMRUpdate, defineStore } from "pinia"
+import { ReplyBanResponse, SearchBanResponse, SuggestionBanResponse } from "../types/twitter"
 
 export const useShadowStore = defineStore("shadowban", () => {
     type IsSo = "None" | "Loading" | "Yes" | "No" | "Unknown"
 
     const restId = ref("")
 
+    const isProtected = ref<IsSo>("None")
+
     const isExist = ref<IsSo>("None")
     const isSuggestionBanned = ref<IsSo>("None")
     const isGhostBanned = ref<IsSo>("None")
-    const isInReplyDeboosting = ref<IsSo>("None")
+    const isReplyDeboosted = ref<IsSo>("None")
+    const isSearchBanned = ref<IsSo>("None")
 
     function setRestId(id: string) {
         restId.value = id
+    }
+
+    function setIsProtected(whether: IsSo) {
+        isProtected.value = whether
     }
 
     function setIsExist(whether: IsSo) {
         isExist.value = whether
     }
 
-    function setIsSuggestionBanned(whether: IsSo) {
-        isSuggestionBanned.value = whether
+    function setIsSuggestionBanned(data: SuggestionBanResponse) {
+        if (data.suggestionBanned !== undefined) {
+            isSuggestionBanned.value = data.suggestionBanned! ? "Yes" : "No"
+        } else {
+            isSuggestionBanned.value = "Unknown"
+        }
     }
 
-    function setIsReplyBanned(data: { ghostBan?: boolean; deboosting?: boolean }) {
-        if (data.ghostBan !== undefined) {
-            isGhostBanned.value = data.ghostBan ? "Yes" : "No"
+    function setIsSearchBanned(data: SearchBanResponse) {
+        if (data.searchBanned !== undefined) {
+            isSearchBanned.value = data.searchBanned! ? "Yes" : "No"
+        } else {
+            isSearchBanned.value = "Unknown"
+        }
+    }
+
+    function setIsReplyBanned(data: ReplyBanResponse) {
+        if (data.ghostBanned !== undefined) {
+            isGhostBanned.value = data.ghostBanned ? "Yes" : "No"
         } else {
             isGhostBanned.value = "Unknown"
         }
-        if (data.deboosting !== undefined) {
-            isInReplyDeboosting.value = data.deboosting ? "Yes" : "No"
+        if (data.replyDeboosting !== undefined) {
+            isReplyDeboosted.value = data.replyDeboosting ? "Yes" : "No"
         } else {
-            isInReplyDeboosting.value = "Unknown"
+            isReplyDeboosted.value = "Unknown"
         }
     }
 
     function setAll(status: "None" | "Loading" | "Yes" | "No" | "Unknown") {
         isExist.value = status
         isSuggestionBanned.value = status
+        isSearchBanned.value = status
         isGhostBanned.value = status
-        isInReplyDeboosting.value = status
+        isReplyDeboosted.value = status
     }
 
     return {
         restId,
+        isProtected,
         isExist,
         isSuggestionBanned,
+        isSearchBanned,
         isGhostBanned,
-        isInReplyDeboosting,
+        isReplyDeboosted,
         setRestId,
+        setIsProtected,
         setIsExist,
         setIsSuggestionBanned,
+        setIsSearchBanned,
         setIsReplyBanned,
         setAll,
     }

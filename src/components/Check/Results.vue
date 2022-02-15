@@ -16,23 +16,31 @@ const shadow = useShadowStore()
 
         <CheckResultsRow
             title="Suggestion Ban"
-            okMessage="No Suggestion Ban!"
+            okMessage="Not Suggestion Banned!"
             badMessage="Suggestion Banned..."
             description="desc"
             :status="shadow.isSuggestionBanned"
             shouldBe="No"
         />
         <CheckResultsRow
-            title="Reply Deboosting"
-            okMessage="No Reply Reboosting!"
-            badMessage="In Reply Reboosting..."
+            title="Search Ban"
+            okMessage="Not Search Banned!"
+            badMessage="Search Banned..."
             description="desc"
-            :status="shadow.isInReplyDeboosting"
+            :status="shadow.isSearchBanned"
+            shouldBe="No"
+        />
+        <CheckResultsRow
+            title="Reply Deboosted"
+            okMessage="Not Reply Deboosted!"
+            badMessage="Reply Deboosted"
+            description="desc"
+            :status="shadow.isReplyDeboosted"
             shouldBe="No"
         />
         <CheckResultsRow
             title="Suggestion Ban"
-            okMessage="No Ghost Ban!"
+            okMessage="Not Ghost Banned!"
             badMessage="Ghost Banned..."
             description="desc"
             :status="shadow.isGhostBanned"
