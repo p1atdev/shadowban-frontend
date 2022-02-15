@@ -35,6 +35,7 @@ export const useShadowStore = defineStore("shadowban", () => {
     }
 
     function setIsSearchBanned(data: SearchBanResponse) {
+        console.log(data)
         if (data.searchBanned !== undefined) {
             isSearchBanned.value = data.searchBanned! ? "Yes" : "No"
         } else {

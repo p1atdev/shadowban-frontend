@@ -1,0 +1,44 @@
+{
+    "common": {
+        "title": "Am I being\nshadowbanned?",
+        "word": {
+            "ban": {
+                "search": "Search Ban",
+                "suggestion": "Suggestion Ban",
+                "ghost": "Ghost Ban",
+                "reply-deboost": "Reply Deboost"
+            },
+            "shadowban": "Shadow Ban",
+            "user": "User Status"
+        }
+    },
+    "message": {
+        "status": {
+            "user": {
+                "title": "User Exists",
+                "ok": "User Exists!"
+            },
+            "search": {
+                "banned": "Search Banned...",
+                "ok": "Not Search Banned"
+            },
+            "suggestion": {
+                "banned": "Suggestion Banned...",
+                "ok": "Not Suggestion Banned"
+            },
+            "ghost": {
+                "banned": "Ghost Banned...",
+                "ok": "Not Ghost Banned"
+            },
+            "reply-deboost": {
+                "banned": "Reply Deboost Banned...",
+                "ok": "Not Reply Deboost Banned"
+            }
+        },
+        "error": {
+            "user": {
+                "try-again": "This user does not exist. Please try again."
+            }
+        }
+    }
+}

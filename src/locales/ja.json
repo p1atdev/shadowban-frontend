@@ -1,0 +1,44 @@
+{
+    "common": {
+        "title": "TwitterシャドーBANチェッカー",
+        "word": {
+            "ban": {
+                "search": "検索BAN",
+                "suggestion": "検索候補BAN",
+                "ghost": "リプライBAN",
+                "reply-deboost": "リプライデブースト"
+            },
+            "shadowban": "シャドーBAN",
+            "user": "ユーザー"
+        }
+    },
+    "message": {
+        "status": {
+            "user": {
+                "title": "ユーザー状態",
+                "ok": "公開アカウント"
+            },
+            "search": {
+                "banned": "検索BANされています",
+                "ok": "検索BANなし"
+            },
+            "suggestion": {
+                "banned": "検索候補BANされています",
+                "ok": "検索候補BANなし"
+            },
+            "ghost": {
+                "banned": "リプライBANされています",
+                "ok": "リプライBANなし"
+            },
+            "reply-deboost": {
+                "banned": "リプライデブーストされています",
+                "ok": "リプライデブーストなし"
+            }
+        }
+    },
+    "error": {
+        "user": {
+            "try-again": "ユーザーが存在しません。もう一度お試しください。"
+        }
+    }
+}

@@ -3,7 +3,7 @@ import config from "#config"
 import type { IncomingMessage, ServerResponse } from "http"
 import { UserResponse } from "~~/src/types/twitter"
 
-export default async (req: IncomingMessage) => {
+export default async (req: IncomingMessage): Promise<UserResponse> => {
     // get screenName form query
     const query = useQuery(req)
     const screenName = query.screenName

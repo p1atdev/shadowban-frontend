@@ -28,7 +28,7 @@ export default defineNuxtConfig({
         },
         { property: "twitter:image", content: baseURL + "/images/ogp.png" },
     ],
-    buildModules: ["@vueuse/nuxt", "@unocss/nuxt", "@pinia/nuxt"],
+    buildModules: ["@vueuse/nuxt", "@unocss/nuxt", "@pinia/nuxt", "@intlify/nuxt3"],
     vueuse: {
         ssrHandlers: true,
     },
@@ -42,4 +42,9 @@ export default defineNuxtConfig({
         shortcuts: [],
     },
     srcDir: "src",
+    intlify: {
+        localeDir: "locales",
+        defaultLocale: "ja",
+        fallbackLocale: "en",
+    },
 })

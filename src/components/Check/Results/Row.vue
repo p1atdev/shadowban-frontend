@@ -52,7 +52,7 @@ const isProtected = shadow.isProtected
             </v-switch>
             <div v-if="isProtected == 'Yes'">
                 <div class="text-yellow-500">
-                    <Icon icon="bi:question-lg" />
+                    <Icon icon="dashicons:lock" />
                 </div>
             </div>
         </div>
