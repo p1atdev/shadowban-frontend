@@ -1,6 +1,7 @@
 {
     "common": {
-        "title": "Am I being\nshadowbanned?",
+        "title": "Am I being shadowbanned?",
+        "bigTitle": "Am I being\nshadowbanned?",
         "word": {
             "ban": {
                 "search": "Search Ban",
@@ -16,29 +17,36 @@
         "status": {
             "user": {
                 "title": "User Exists",
-                "ok": "User Exists!"
+                "ok": "User Exists!",
+                "protected": "User is protected",
+                "noTweets": "User user has no tweet"
             },
             "search": {
                 "banned": "Search Banned...",
-                "ok": "Not Search Banned"
+                "ok": "Not Search Banned",
+                "unknown": "Unable to determine search ban"
             },
             "suggestion": {
                 "banned": "Suggestion Banned...",
-                "ok": "Not Suggestion Banned"
+                "ok": "Not Suggestion Banned",
+                "unknown": "Unable to determine suggestion ban"
             },
             "ghost": {
                 "banned": "Ghost Banned...",
-                "ok": "Not Ghost Banned"
+                "ok": "Not Ghost Banned",
+                "unknown": "Unable to determine ghost ban"
             },
             "reply-deboost": {
                 "banned": "Reply Deboost Banned...",
-                "ok": "Not Reply Deboost Banned"
+                "ok": "Not Reply Deboost Banned",
+                "unknown": "Unable to determine reply deboost ban"
             }
         },
         "error": {
             "user": {
                 "try-again": "This user does not exist. Please try again."
-            }
+            },
+            "network": "It seems there is no Internet connection."
         }
     }
 }

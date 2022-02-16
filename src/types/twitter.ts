@@ -4,6 +4,7 @@ export interface UserResponse {
     exists: boolean
     restId?: string
     protected?: boolean
+    hasTweets?: boolean
 }
 
 export interface SuggestionBanResponse {
@@ -23,4 +24,10 @@ export interface ReplyBanResponse {
     restId: string
     ghostBanned?: boolean
     replyDeboosting?: boolean
+}
+
+export interface StatusResponse {
+    message: string
+    status: string
+    available: boolean
 }

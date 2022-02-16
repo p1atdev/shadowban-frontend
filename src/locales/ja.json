@@ -1,6 +1,7 @@
 {
     "common": {
         "title": "TwitterシャドーBANチェッカー",
+        "bigTitle": "Twitter シャドー BAN チェッカー",
         "word": {
             "ban": {
                 "search": "検索BAN",
@@ -16,29 +17,36 @@
         "status": {
             "user": {
                 "title": "ユーザー状態",
-                "ok": "公開アカウント"
+                "ok": "公開アカウント",
+                "protected": "非公開アカウント",
+                "noTweets": "公開アカウント(ツイートなし)"
             },
             "search": {
                 "banned": "検索BANされています",
-                "ok": "検索BANなし"
+                "ok": "検索BANなし",
+                "unknown": "検索BAN判定不能"
             },
             "suggestion": {
                 "banned": "検索候補BANされています",
-                "ok": "検索候補BANなし"
+                "ok": "検索候補BANなし",
+                "unknown": "検索候補BAN判定不能"
             },
             "ghost": {
                 "banned": "リプライBANされています",
-                "ok": "リプライBANなし"
+                "ok": "リプライBANなし",
+                "unknown": "リプライBAN判定不能"
             },
             "reply-deboost": {
                 "banned": "リプライデブーストされています",
-                "ok": "リプライデブーストなし"
+                "ok": "リプライデブーストなし",
+                "unknown": "リプライデブースト判定不能"
             }
         }
     },
     "error": {
         "user": {
             "try-again": "ユーザーが存在しません。もう一度お試しください。"
-        }
+        },
+        "network": "ネットワークに接続されていないようです"
     }
 }

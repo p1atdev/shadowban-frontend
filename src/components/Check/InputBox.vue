@@ -3,12 +3,12 @@ import { Icon } from "@iconify/vue"
 
 type Props = {
     onButtonClick: (value: string) => void
-    defaultScreenName?: string
+    initialScreenName?: string
 }
 
-const { onButtonClick, defaultScreenName } = defineProps<Props>()
+const { onButtonClick, initialScreenName = "" } = defineProps<Props>()
 
-const screenName = ref(defaultScreenName)
+const screenName = ref(initialScreenName)
 </script>
 
 <template>

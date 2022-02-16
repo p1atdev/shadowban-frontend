@@ -5,9 +5,9 @@ const { t } = useI18n()
 </script>
 
 <template>
-    <p
+    <div
         class="text-center text-4xl sm:text-5xl md:text-6xl mt-16 font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-cyan-500 to-blue-500 whitespace-pre-wrap"
     >
-        {{ t("common.title") }}
-    </p>
+        {{ t("common.bigTitle") }}
+    </div>
 </template>

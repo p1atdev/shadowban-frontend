@@ -11,10 +11,13 @@ const shadow = useShadowStore()
         <CheckResultsRow
             :title="t('common.word.user')"
             :okMessage="t('message.status.user.ok')"
-            :badMessage="t('message.error.user.try-again')"
+            :badMessage="t('message.error.user.try-again', { screenName: shadow.user.screenName })"
+            :protectedMessage="t('message.status.user.protected', { screenName: shadow.user.screenName })"
+            :networkErrorMessage="t('message.error.network')"
+            :noTweetMessage="t('message.status.user.noTweets', { screenName: shadow.user.screenName })"
             :description="t('message.status.user.description')"
-            :status="shadow.isExist"
-            shouldBe="Yes"
+            :status="shadow.userStatus"
+            shouldBe="Public"
         />
 
         <CheckResultsRow
@@ -22,7 +25,7 @@ const shadow = useShadowStore()
             :okMessage="t('message.status.suggestion.ok')"
             :badMessage="t('message.status.suggestion.banned')"
             :description="t('message.status.suggestion.description')"
-            :status="shadow.isSuggestionBanned"
+            :status="shadow.suggestionBanStatus"
             shouldBe="No"
         />
         <CheckResultsRow
@@ -30,7 +33,8 @@ const shadow = useShadowStore()
             :okMessage="t('message.status.search.ok')"
             :badMessage="t('message.status.search.banned')"
             :description="t('message.status.search.description')"
-            :status="shadow.isSearchBanned"
+            :unknownMessage="t('message.status.search.unknown')"
+            :status="shadow.searchBanStatus"
             shouldBe="No"
         />
         <CheckResultsRow
@@ -38,7 +42,8 @@ const shadow = useShadowStore()
             :okMessage="t('message.status.reply-deboost.ok')"
             :badMessage="t('message.status.reply-deboost.banned')"
             :description="t('message.status.reply-deboost.description')"
-            :status="shadow.isReplyDeboosted"
+            :unknownMessage="t('message.status.reply-deboost.unknown')"
+            :status="shadow.replyDeboostStatus"
             shouldBe="No"
         />
         <CheckResultsRow
@@ -46,7 +51,8 @@ const shadow = useShadowStore()
             :okMessage="t('message.status.ghost.ok')"
             :badMessage="t('message.status.ghost.banned')"
             :description="t('message.status.ghost.description')"
-            :status="shadow.isGhostBanned"
+            :unknownMessage="t('message.status.ghost.unknown')"
+            :status="shadow.ghostBanStatus"
             shouldBe="No"
         />
     </div>

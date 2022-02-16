@@ -1,84 +1,162 @@
 import { acceptHMRUpdate, defineStore } from "pinia"
-import { ReplyBanResponse, SearchBanResponse, SuggestionBanResponse } from "../types/twitter"
+import {
+    ReplyBanResponse,
+    SearchBanResponse,
+    SuggestionBanResponse,
+    StatusResponse,
+    UserResponse,
+} from "../types/twitter"
+
+export type UserStatus = "None" | "Loading" | "Public" | "DoesNotExist" | "Protected" | "NoTweets"
+export type Status = "None" | "Loading" | "Yes" | "No" | "Unknown"
+
+export type Error = "None" | "NetworkError"
 
 export const useShadowStore = defineStore("shadowban", () => {
-    type IsSo = "None" | "Loading" | "Yes" | "No" | "Unknown"
+    const serverStatus = ref<StatusResponse>({ message: "", status: "", available: true })
+    const error = ref<Error>("None")
 
-    const restId = ref("")
+    const user = ref<UserResponse>({ screenName: "twitter", exists: true })
 
-    const isProtected = ref<IsSo>("None")
+    const isProtected = ref<Status>("None")
 
-    const isExist = ref<IsSo>("None")
-    const isSuggestionBanned = ref<IsSo>("None")
-    const isGhostBanned = ref<IsSo>("None")
-    const isReplyDeboosted = ref<IsSo>("None")
-    const isSearchBanned = ref<IsSo>("None")
+    const userStatus = ref<UserStatus>("None")
+    const suggestionBanStatus = ref<Status>("None")
+    const ghostBanStatus = ref<Status>("None")
+    const replyDeboostStatus = ref<Status>("None")
+    const searchBanStatus = ref<Status>("None")
 
-    function setRestId(id: string) {
-        restId.value = id
+    function setUserStatus(status: UserStatus) {
+        userStatus.value = status
     }
 
-    function setIsProtected(whether: IsSo) {
-        isProtected.value = whether
-    }
-
-    function setIsExist(whether: IsSo) {
-        isExist.value = whether
-    }
-
-    function setIsSuggestionBanned(data: SuggestionBanResponse) {
-        if (data.suggestionBanned !== undefined) {
-            isSuggestionBanned.value = data.suggestionBanned! ? "Yes" : "No"
+    function setUserStatusFromUser() {
+        if (!user.value.exists) {
+            userStatus.value = "DoesNotExist"
+        } else if (user.value.protected) {
+            userStatus.value = "Protected"
+        } else if (!user.value.hasTweets) {
+            userStatus.value = "NoTweets"
         } else {
-            isSuggestionBanned.value = "Unknown"
+            userStatus.value = "Public"
         }
     }
 
-    function setIsSearchBanned(data: SearchBanResponse) {
+    function setError(status: Error) {
+        error.value = status
+    }
+
+    function setSuggestionBanStatus(data: SuggestionBanResponse) {
+        if (data.suggestionBanned !== undefined) {
+            suggestionBanStatus.value = data.suggestionBanned! ? "Yes" : "No"
+        } else {
+            suggestionBanStatus.value = "Unknown"
+        }
+    }
+
+    function setSearchBanStatus(data: SearchBanResponse) {
         console.log(data)
         if (data.searchBanned !== undefined) {
-            isSearchBanned.value = data.searchBanned! ? "Yes" : "No"
+            searchBanStatus.value = data.searchBanned! ? "Yes" : "No"
         } else {
-            isSearchBanned.value = "Unknown"
+            searchBanStatus.value = "Unknown"
         }
     }
 
-    function setIsReplyBanned(data: ReplyBanResponse) {
+    function setReplyBanStatus(data: ReplyBanResponse) {
         if (data.ghostBanned !== undefined) {
-            isGhostBanned.value = data.ghostBanned ? "Yes" : "No"
+            ghostBanStatus.value = data.ghostBanned ? "Yes" : "No"
         } else {
-            isGhostBanned.value = "Unknown"
+            ghostBanStatus.value = "Unknown"
         }
         if (data.replyDeboosting !== undefined) {
-            isReplyDeboosted.value = data.replyDeboosting ? "Yes" : "No"
+            replyDeboostStatus.value = data.replyDeboosting ? "Yes" : "No"
         } else {
-            isReplyDeboosted.value = "Unknown"
+            replyDeboostStatus.value = "Unknown"
         }
     }
 
-    function setAll(status: "None" | "Loading" | "Yes" | "No" | "Unknown") {
-        isExist.value = status
-        isSuggestionBanned.value = status
-        isSearchBanned.value = status
-        isGhostBanned.value = status
-        isReplyDeboosted.value = status
+    function setAll(status: Status) {
+        suggestionBanStatus.value = status
+        searchBanStatus.value = status
+        ghostBanStatus.value = status
+        replyDeboostStatus.value = status
+    }
+
+    const getServerStatus = async () => {
+        const { data } = await useFetch(`/api/v1/status`, {
+            method: "GET",
+        })
+
+        serverStatus.value = data.value
+    }
+
+    const getUser = async (screenName: string) => {
+        const { data } = await useFetch(`/api/v1/user`, {
+            method: "GET",
+            params: {
+                screenName: screenName,
+            },
+        })
+
+        user.value = data.value
+    }
+
+    const getSuggestionBan = async () => {
+        const { data } = await useFetch(`/api/v1/suggestion_ban`, {
+            method: "GET",
+            params: {
+                screenName: user.value.screenName,
+            },
+        })
+
+        setSuggestionBanStatus(data.value)
+    }
+
+    const getSearchBan = async () => {
+        const { data } = await useFetch(`/api/v1/search_ban`, {
+            method: "GET",
+            params: {
+                screenName: user.value.screenName,
+            },
+        })
+
+        setSearchBanStatus(data.value)
+    }
+
+    const getReplyBan = async () => {
+        const { data } = await useFetch(`/api/v1/reply_ban`, {
+            method: "GET",
+            params: {
+                restId: user.value.restId,
+            },
+        })
+
+        setReplyBanStatus(data.value)
     }
 
     return {
-        restId,
+        serverStatus,
+        user,
+        error,
         isProtected,
-        isExist,
-        isSuggestionBanned,
-        isSearchBanned,
-        isGhostBanned,
-        isReplyDeboosted,
-        setRestId,
-        setIsProtected,
-        setIsExist,
-        setIsSuggestionBanned,
-        setIsSearchBanned,
-        setIsReplyBanned,
+        userStatus,
+        suggestionBanStatus,
+        searchBanStatus,
+        ghostBanStatus,
+        replyDeboostStatus,
+        setUserStatus,
+        setUserStatusFromUser,
+        setError,
+        setSuggestionBanStatus,
+        setSearchBanStatus,
+        setReplyBanStatus,
         setAll,
+        getUser,
+        getServerStatus,
+        getSuggestionBan,
+        getSearchBan,
+        getReplyBan,
     }
 })
 

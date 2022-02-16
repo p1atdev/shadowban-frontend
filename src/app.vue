@@ -6,13 +6,14 @@ const baseURL = "https://shadowban.p1atdev.tk"
 const i18n = useI18n()
 const route = useRoute()
 
-let lang = "en"
+let lang = "ja"
 
 // 多言語対応
 if (route.query.lang) {
-    i18n.locale.value = route.query.lang
     lang = route.query.lang.toString()
 }
+
+i18n.locale.value = lang
 
 useMeta({
     meta: [
