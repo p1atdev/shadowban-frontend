@@ -9,7 +9,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
   // 測定設定
   const config = {
-    id: `GTM-TWMKZM8`, // GA4の測定IDを指定する
+    id: `G-2TKB8NH5NP`, // GA4の測定IDを指定する
   };
 
   // Vue登録
