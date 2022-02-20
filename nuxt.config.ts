@@ -7,6 +7,7 @@ const baseURL = "https://shadowban-twitter.vercel.app"
 export default defineNuxtConfig({
     publicRuntimeConfig: {
         API_URL: process.env.API_URL,
+        GTAG: process.env.GTAG,
     },
     meta: [
         { name: "title", content: "Am I being shadowbanned?" },
