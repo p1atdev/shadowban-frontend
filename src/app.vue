@@ -32,13 +32,15 @@ useMeta({
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: i18n.t("common.title") },
         { property: "twitter:card", content: "summary_large_image" },
-        // { name: "twitter:site", content: "@" },
-        { name: "twitter:title", content: i18n.t("common.title") },
+        { property: "twitter:site", content: "@p1atdev" },
+        { property: "twitter:creator", content: "@p1atdev" },
+        { property: "twitter:title", content: i18n.t("common.title") },
         {
             property: "twitter:description",
             content: "A twitter shadowban checker. Let's check whether you are shadowbanned.",
         },
-        { property: "twitter:image", content: baseURL + "/images/ogp.png" },
+        { property: "twitter:image", content: baseURL + "/ogp/" + lang + ".png" },
+        { property: "twitter:url", content: baseURL },
     ],
 })
 </script>
