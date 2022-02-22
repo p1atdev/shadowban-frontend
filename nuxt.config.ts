@@ -1,4 +1,8 @@
 import { defineNuxtConfig } from "nuxt3"
+import presetUno from "@unocss/preset-uno"
+import presetAttributify from "@unocss/preset-attributify"
+import presetIcons from "@unocss/preset-icons"
+import { presetTypography } from "@unocss/preset-typography"
 
 // process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0"
 
@@ -37,10 +41,11 @@ export default defineNuxtConfig({
         uno: true,
         attributify: true,
         preflight: true,
-        // icons: {
-        // scale: 1.2,
-        // },
+        icons: {
+            scale: 1.2,
+        },
         shortcuts: [],
+        presets: [presetAttributify(), presetUno(), presetIcons(), presetTypography()],
     },
     srcDir: "src",
     intlify: {

@@ -47,17 +47,16 @@ export const useShadowStore = defineStore("shadowban", () => {
     }
 
     function setSuggestionBanStatus(data: SuggestionBanResponse) {
-        if (data.suggestionBanned !== undefined) {
-            suggestionBanStatus.value = data.suggestionBanned! ? "Yes" : "No"
+        if (data.banned !== undefined) {
+            suggestionBanStatus.value = data.banned! ? "Yes" : "No"
         } else {
             suggestionBanStatus.value = "Unknown"
         }
     }
 
     function setSearchBanStatus(data: SearchBanResponse) {
-        console.log(data)
-        if (data.searchBanned !== undefined) {
-            searchBanStatus.value = data.searchBanned! ? "Yes" : "No"
+        if (data.banned !== undefined) {
+            searchBanStatus.value = data.banned! ? "Yes" : "No"
         } else {
             searchBanStatus.value = "Unknown"
         }
@@ -84,7 +83,7 @@ export const useShadowStore = defineStore("shadowban", () => {
     }
 
     const getServerStatus = async () => {
-        const { data } = await useFetch(`/api/v1/status`, {
+        const { data } = await useFetch(`/api/v2/status`, {
             method: "GET",
         })
 
@@ -92,9 +91,9 @@ export const useShadowStore = defineStore("shadowban", () => {
     }
 
     const getUser = async (screenName: string) => {
-        const { data } = await useFetch(`/api/v1/user`, {
-            method: "GET",
-            params: {
+        const { data } = await useFetch(`/api/v2/user`, {
+            method: "POST",
+            body: {
                 screenName: screenName,
             },
         })
@@ -103,10 +102,12 @@ export const useShadowStore = defineStore("shadowban", () => {
     }
 
     const getSuggestionBan = async () => {
-        const { data } = await useFetch(`/api/v1/suggestion_ban`, {
-            method: "GET",
-            params: {
+        const { data } = await useFetch(`/api/v2/suggestion_ban`, {
+            method: "POST",
+            body: {
                 screenName: user.value.screenName,
+                guestToken: user.value.guestToken,
+                queries: user.value.queries,
             },
         })
 
@@ -114,10 +115,12 @@ export const useShadowStore = defineStore("shadowban", () => {
     }
 
     const getSearchBan = async () => {
-        const { data } = await useFetch(`/api/v1/search_ban`, {
-            method: "GET",
-            params: {
+        const { data } = await useFetch(`/api/v2/search_ban`, {
+            method: "POST",
+            body: {
                 screenName: user.value.screenName,
+                guestToken: user.value.guestToken,
+                queries: user.value.queries,
             },
         })
 
@@ -125,10 +128,12 @@ export const useShadowStore = defineStore("shadowban", () => {
     }
 
     const getReplyBan = async () => {
-        const { data } = await useFetch(`/api/v1/reply_ban`, {
-            method: "GET",
-            params: {
+        const { data } = await useFetch(`/api/v2/reply_ban`, {
+            method: "POST",
+            body: {
                 restId: user.value.restId,
+                guestToken: user.value.guestToken,
+                queries: user.value.queries,
             },
         })
 

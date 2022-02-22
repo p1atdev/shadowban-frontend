@@ -5,18 +5,20 @@ export interface UserResponse {
     restId?: string
     protected?: boolean
     hasTweets?: boolean
+    guestToken?: string
+    queries?: Object
 }
 
 export interface SuggestionBanResponse {
     message?: string
     screenName?: string
-    suggestionBanned?: boolean
+    banned?: boolean
 }
 
 export interface SearchBanResponse {
     message?: string
     screenName?: string
-    searchBanned?: boolean
+    banned?: boolean
 }
 
 export interface ReplyBanResponse {

@@ -1,19 +1,24 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n"
+import NavBar from "./components/NavBar.vue"
 
 const baseURL = "https://shadowban.p1atdev.tk"
 
 const i18n = useI18n()
 const route = useRoute()
-
-let lang = "ja"
+const lang = useCookie("language", {
+    default: () => {
+        return "ja"
+    },
+    maxAge: 60 * 60 * 24 * 365,
+})
 
 // 多言語対応
 if (route.query.lang) {
-    lang = route.query.lang.toString()
+    lang.value = route.query.lang.toString()
 }
 
-i18n.locale.value = lang
+i18n.locale.value = lang.value
 
 useMeta({
     meta: [
@@ -40,6 +45,7 @@ useMeta({
 </script>
 
 <template>
+    <NavBar />
     <main class="">
         <NuxtPage />
     </main>
