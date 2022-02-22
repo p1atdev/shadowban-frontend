@@ -6,7 +6,7 @@ const { t } = useI18n()
 
 // const twitterURL = "https://twitter.com/intent/tweet?text="
 
-const tweetContent = t("tweet.content")
+const tweetContent = t("share.content")
 
 const tweetURL = t("share.url")
 
