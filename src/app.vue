@@ -25,7 +25,7 @@ useMeta({
         { property: "og:title", content: i18n.t("common.title") },
         {
             property: "og:description",
-            content: "A twitter shadowban checker. Let's check whether you are shadowbanned.",
+            content: i18n.t("common.description"),
         },
         { property: "og:image", content: baseURL + "/ogp/" + lang + ".png" },
         { property: "og:url", content: baseURL },
@@ -37,7 +37,7 @@ useMeta({
         { property: "twitter:title", content: i18n.t("common.title") },
         {
             property: "twitter:description",
-            content: "A twitter shadowban checker. Let's check whether you are shadowbanned.",
+            content: i18n.t("common.description"),
         },
         { property: "twitter:image", content: baseURL + "/ogp/" + lang + ".png" },
         { property: "twitter:url", content: baseURL },

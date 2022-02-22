@@ -1,6 +1,7 @@
 {
     "common": {
         "title": "TwitterシャドーBANチェッカー",
+        "description": "TwitterのアカウントがシャドーBANされているか今すぐチェックしてみましょう！",
         "bigTitle": "Twitter シャドー BAN チェッカー",
         "word": {
             "ban": {

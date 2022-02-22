@@ -1,6 +1,7 @@
 {
     "common": {
         "title": "Am I being shadowbanned?",
+        "description": "A twitter shadowban checker. Let's check whether you are shadowbanned.",
         "bigTitle": "Am I being\nshadowbanned?",
         "word": {
             "ban": {
