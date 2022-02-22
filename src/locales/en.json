@@ -47,10 +47,16 @@
                 "not-exist": "This user does not exist."
             },
             "network": "It seems there is no Internet connection."
-        }
+        },
+        "copied": "Copied!"
     },
     "footer": {
         "frontend": "Frontend",
         "backend": "Backend"
+    },
+    "share": {
+        "url": "https://shadowban.p1atdev.tk/?lang=en",
+        "content": "Check out this awesome tool to check if a user is shadow banned from Twitter!",
+        "button": "Share with friends"
     }
 }
