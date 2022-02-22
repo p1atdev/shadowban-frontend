@@ -50,7 +50,7 @@
         }
     },
     "footer": {
-        "frontend": "フロントエンド",
-        "backend": "バックエンド"
+        "frontend": "Frontend",
+        "backend": "Backend"
     }
 }
