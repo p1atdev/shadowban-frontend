@@ -1,6 +1,7 @@
 {
     "common": {
         "title": "TwitterシャドーBANチェッカー",
+        "description": "TwitterのアカウントがシャドーBANされているか今すぐチェックしてみましょう！",
         "bigTitle": "Twitter シャドー BAN チェッカー",
         "word": {
             "ban": {
@@ -47,10 +48,16 @@
                 "not-exist": "このユーザーは存在しません"
             },
             "network": "ネットワークに接続されていないようです"
-        }
+        },
+        "copied": "コピーしました"
     },
     "footer": {
         "frontend": "フロントエンド",
         "backend": "バックエンド"
+    },
+    "share": {
+        "url": "https://shadowban.p1atdev.tk/?lang=ja",
+        "content": "TwitterのアカウントがシャドーBANされているか今すぐチェックしてみよう！",
+        "button": "友達に教える"
     }
 }

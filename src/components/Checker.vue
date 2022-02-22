@@ -52,5 +52,6 @@ const startCheck = async (screenName: string) => {
         <div class="grid place-items-center">
             <CheckResults />
         </div>
+        <TweetButton />
     </div>
 </template>
