@@ -39,7 +39,8 @@ useMeta({
             property: "twitter:description",
             content: i18n.t("common.description"),
         },
-        { property: "twitter:image", content: baseURL + "/ogp/" + lang + ".png" },
+        { property: "twitter:image", content: baseURL + "/ogp/" + "en" + ".png" },
+        // ↑ ローカライズできなくて辛い。なんでだろう。
         { property: "twitter:url", content: baseURL },
     ],
 })
