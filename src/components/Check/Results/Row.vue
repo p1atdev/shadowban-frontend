@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useShadowStore, UserStatus, Status, Error } from "../../../stores/shadow"
 import VSwitch from "@lmiller1990/v-switch"
-import { Icon } from "@iconify/vue"
 
 type Props = {
     title: string
@@ -26,49 +25,49 @@ const shadow = useShadowStore()
         <div px-4>
             <div v-if="shadow.error == 'NetworkError'">
                 <div class="text-orange-500">
-                    <Icon icon="bi:question-lg" />
+                    <div class="i-bi-question-lg" />
                 </div>
             </div>
             <div v-else-if="shadow.userStatus == 'Protected' && protectedMessage">
                 <div class="text-orange-500">
-                    <Icon icon="dashicons:lock" />
+                    <div class="i-dashicons-lock" />
                 </div>
             </div>
             <div v-else>
                 <v-switch :case="status">
                     <template #None>
                         <div class="text-blue-500">
-                            <Icon icon="bi:question-lg" />
+                            <div class="i-bi-question-lg" />
                         </div>
                     </template>
 
                     <template #Loading>
                         <div class="text-blue-500 animate-spin">
-                            <Icon icon="ant-design:loading-3-quarters-outlined" />
+                            <div class="i-ant-design-loading-3-quarters-outlined" />
                         </div>
                     </template>
 
                     <template #Unknown>
                         <div class="text-orange-500">
-                            <Icon icon="bi:question-lg" />
+                            <div class="i-bi-question-lg" />
                         </div>
                     </template>
 
                     <template #NoTweets>
                         <div class="text-orange-500">
-                            <Icon icon="charm:triangle" />
+                            <div class="i-charm-triangle" />
                         </div>
                     </template>
 
                     <template #default>
                         <div v-if="status == shouldBe">
                             <div class="text-sky-600">
-                                <Icon icon="akar-icons:check" />
+                                <div class="i-akar-icons-check" />
                             </div>
                         </div>
                         <div v-else>
                             <div class="text-red-500">
-                                <Icon icon="ant-design:exclamation-outlined" />
+                                <div class="i-ant-design-exclamation-outlined" />
                             </div>
                         </div>
                     </template>
@@ -85,13 +84,13 @@ const shadow = useShadowStore()
             <div v-else>
                 <v-switch :case="status">
                     <template #None>
-                        <div class="text-gray-700">
+                        <div class="text-gray-700 dark:text-gray-200">
                             {{ title }}
                         </div>
                     </template>
 
                     <template #Loading>
-                        <div class="text-gray-700">
+                        <div class="text-gray-700 dark:text-gray-200">
                             {{ title }}
                         </div>
                     </template>
@@ -110,12 +109,12 @@ const shadow = useShadowStore()
 
                     <template #default>
                         <div v-if="status == shouldBe">
-                            <div class="text-sky-600">
+                            <div class="text-sky-600 dark:text-sky-100">
                                 {{ okMessage }}
                             </div>
                         </div>
                         <div v-else>
-                            <div class="text-red-500">
+                            <div class="text-red-500 text-center">
                                 {{ badMessage }}
                             </div>
                         </div>

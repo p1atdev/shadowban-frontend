@@ -7,14 +7,16 @@ const shadow = useShadowStore()
 </script>
 
 <template>
-    <div class="p-2 mb-12 mx-4 sm:min-w-lg md:min-w-xl bg-sky-50 rounded-lg divide-y divide-gray-300">
+    <div
+        class="p-2 mb-12 mx-4 sm:min-w-lg md:min-w-xl bg-sky-50 dark:bg-gray-700 rounded-lg divide-y divide-gray-300 dark:divide-gray-800"
+    >
         <CheckResultsRow
             :title="t('common.word.user')"
             :okMessage="t('message.status.user.ok')"
-            :badMessage="t('message.error.user.try-again', { screenName: shadow.user.screenName })"
-            :protectedMessage="t('message.status.user.protected', { screenName: shadow.user.screenName })"
+            :badMessage="t('message.error.user.not-exist', { screenName: '@' + shadow.user.screenName })"
+            :protectedMessage="t('message.status.user.protected', { screenName: '@' + shadow.user.screenName })"
             :networkErrorMessage="t('message.error.network')"
-            :noTweetMessage="t('message.status.user.noTweets', { screenName: shadow.user.screenName })"
+            :noTweetMessage="t('message.status.user.noTweets', { screenName: '@' + shadow.user.screenName })"
             :description="t('message.status.user.description')"
             :status="shadow.userStatus"
             shouldBe="Public"
