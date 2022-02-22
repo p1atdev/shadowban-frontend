@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n"
-import NavBar from "./components/NavBar.vue"
 
 const baseURL = "https://shadowban.p1atdev.tk"
 
@@ -49,6 +48,7 @@ useMeta({
     <main class="">
         <NuxtPage />
     </main>
+    <Footer />
 </template>
 
 <style>

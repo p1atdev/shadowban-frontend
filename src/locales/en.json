@@ -48,5 +48,9 @@
             },
             "network": "It seems there is no Internet connection."
         }
+    },
+    "footer": {
+        "frontend": "フロントエンド",
+        "backend": "バックエンド"
     }
 }
