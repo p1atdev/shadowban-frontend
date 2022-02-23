@@ -11,7 +11,7 @@ const shadow = useShadowStore()
         class="p-2 mb-12 mx-4 sm:min-w-lg md:min-w-xl bg-sky-50 dark:bg-gray-700 rounded-lg divide-y divide-gray-300 dark:divide-gray-800"
     >
         <CheckResultsRow
-            :title="t('common.word.user')"
+            :title="t('message.status.user.title')"
             :okMessage="t('message.status.user.ok')"
             :badMessage="t('message.error.user.not-exist', { screenName: '@' + shadow.user.screenName })"
             :protectedMessage="t('message.status.user.protected', { screenName: '@' + shadow.user.screenName })"

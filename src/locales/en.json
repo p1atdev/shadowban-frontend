@@ -20,27 +20,32 @@
                 "title": "User Exists",
                 "ok": "User Exists!",
                 "protected": "User is protected",
-                "noTweets": "User user has no tweet"
+                "noTweets": "User user has no tweet",
+                "description": "Indicates whether the user is a public or private account. "
             },
             "search": {
                 "banned": "Search Banned...",
                 "ok": "Not Search Banned",
-                "unknown": "Unable to determine search ban"
+                "unknown": "Unable to determine search ban",
+                "description": "A search ban is a ban that prevents the target user's tweets from appearing in search results."
             },
             "suggestion": {
                 "banned": "Suggestion Banned...",
                 "ok": "Not Suggestion Banned",
-                "unknown": "Unable to determine suggestion ban"
+                "unknown": "Unable to determine suggestion ban",
+                "description": "Search suggestion ban is a ban that prevents a user's profile from appearing in search suggestions when typing something like \"&#x40;Twitter\" in the search field."
             },
             "ghost": {
                 "banned": "Ghost Banned...",
                 "ok": "Not Ghost Banned",
-                "unknown": "Unable to determine ghost ban"
+                "unknown": "Unable to determine ghost ban",
+                "description": "Ghost ban is a ban that prevents the target user's tweets from being displayed in the reply tree."
             },
             "reply-deboost": {
                 "banned": "Reply Deboost Banned...",
                 "ok": "Not Reply Deboost Banned",
-                "unknown": "Unable to determine reply deboost ban"
+                "unknown": "Unable to determine reply deboost ban",
+                "description": "Reply deboosting is a restriction that prevents the replies of the target user from being displayed unless you click \"Show more replies\" in the reply tree."
             }
         },
         "error": {
